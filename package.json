@@ -6,14 +6,18 @@
   "author": "Leandro Muto <leandro.muto@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "cucumber": "cucumber-js tests/cucumber/features/scenarios/**/*.feature"
+    "mocha": "mocha 'test/mocha/**/*.js' --timeout 10000",
+    "cucumber": "cucumber-js tests/cucumber/features/**/*.feature"
   },
   "dependencies": {
-    "playwright": "^1.2.0"
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "playwright-video": "^2.3.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "cucumber": "^6.0.5"
+    "cucumber": "^6.0.5",
+    "mocha": "^8.0.1",
+    "playwright": "^1.2.0"
   },
   "description": "messing around with playwright"
 }
