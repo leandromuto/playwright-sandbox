@@ -1,5 +1,7 @@
 const chai = require('chai')
+const moment = require('moment')
 const fs = require('fs')
+
 
 global.chai = chai
 global.expect = chai.expect
@@ -7,7 +9,11 @@ global.assert = chai.assert
 
 global.baseURL = 'http://localhost:3000/'
 
-global.logFile = fs.createWriteStream(`log-${Date.now().toString()}.txt`)
+const now = () => moment().utc().format('D/MM/YY HH:mm:ss:SSSS')
+global.logFile = fs.createWriteStream(`tmp/${Date.now().toString()}.txt`, { flags: 'w+' })
+global.logger = (text) => {
+  logFile.write(`${now()} - ${text}\n`)
+}
 
 module.exports = {
   diff: true,

@@ -1,8 +1,5 @@
 const { chromium } = require('playwright')
-const moment = require('moment')
 const { saveVideo } = require('playwright-video');
-
-const now = () => moment().utc().format('D/MM/YY HH:mm:ss:SSSS')
 
 describe('user', function() {
 
@@ -45,7 +42,7 @@ describe('user', function() {
     browser = await chromium.launch({
       logger: {
         isEnabled: (name, severity) => name === 'browser' || name === 'api',
-        log: (name, severity, message, args) => logFile.write(`${now()} - [${severity}][${name}] ${message}\n`)
+        log: (name, severity, message, args) => logger(`[${severity}][${name}] ${message}`)
       }
     })
     const context = await browser.newContext();
@@ -66,6 +63,7 @@ describe('user', function() {
   })
 
   afterEach(async function() {
+    logger(`Finishing ${this.test.ctx.title}`)
     await page.screenshot({ path: `tmp/${this.test.ctx.currentTest.title.replace(' ', '_')}.png` })
     await page.goto(baseURL)
   })
