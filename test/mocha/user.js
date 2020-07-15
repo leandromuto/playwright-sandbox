@@ -1,5 +1,8 @@
 const { chromium } = require('playwright')
+const moment = require('moment')
 const { saveVideo } = require('playwright-video');
+
+const now = () => moment().utc().format('D/MM/YY HH:mm:ss:SSSS')
 
 describe('user', function() {
 
@@ -39,7 +42,12 @@ describe('user', function() {
   }
 
   before(async function(){
-    browser = await chromium.launch()
+    browser = await chromium.launch({
+      logger: {
+        isEnabled: (name, severity) => name === 'browser' || name === 'api',
+        log: (name, severity, message, args) => logFile.write(`${now()} - [${severity}][${name}] ${message}\n`)
+      }
+    })
     const context = await browser.newContext();
     page = await context.newPage()
 
@@ -58,7 +66,7 @@ describe('user', function() {
   })
 
   afterEach(async function() {
-    await page.screenshot({ path: `/tmp/${this.test.ctx.currentTest.title}.png` })
+    await page.screenshot({ path: `tmp/${this.test.ctx.currentTest.title.replace(' ', '_')}.png` })
     await page.goto(baseURL)
   })
 
@@ -67,17 +75,6 @@ describe('user', function() {
       const user = {
         name: 'John',
         surname: 'Logan',
-        email: 'john@emailme.com',
-        telephone: '12678389'
-      }
-
-      await editUser(user)
-    })
-
-    it('xpto', async () => {
-      const user = {
-        name: 'XPTO',
-        surname: 'CPTO',
         email: 'john@emailme.com',
         telephone: '12678389'
       }

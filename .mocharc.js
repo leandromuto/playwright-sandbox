@@ -1,12 +1,13 @@
 const chai = require('chai')
-const { webkit } = require('playwright')
+const fs = require('fs')
 
 global.chai = chai
 global.expect = chai.expect
 global.assert = chai.assert
-global.webkit = webkit
 
 global.baseURL = 'http://localhost:3000/'
+
+global.logFile = fs.createWriteStream(`log-${Date.now().toString()}.txt`)
 
 module.exports = {
   diff: true,
