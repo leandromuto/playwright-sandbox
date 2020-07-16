@@ -1,5 +1,6 @@
 const { chromium } = require('playwright')
 const { saveVideo } = require('playwright-video');
+const { logger } = require('./helper/logger')
 
 describe('user', function() {
 
