@@ -1,6 +1,4 @@
 const { chromium } = require('playwright')
-const { saveVideo } = require('playwright-video');
-const { logger } = require('./helper/logger')
 
 describe('user', function() {
 
@@ -43,7 +41,7 @@ describe('user', function() {
     browser = await chromium.launch({
       logger: {
         isEnabled: (name, severity) => name === 'browser' || name === 'api',
-        log: (name, severity, message, args) => logger(`[${severity}][${name}] ${message}`)
+        log: (name, severity, message, args) => logger.info(`[${severity}][${name}]${message}`)
       }
     })
     const context = await browser.newContext();
@@ -55,18 +53,18 @@ describe('user', function() {
     await login()
   })
 
-  // beforeEach(async function() {
-  //   await saveVideo(page, `tmp/video/${this.test.ctx.currentTest.title.replace(' ', '_')}.mp4`);
-  // })
+  beforeEach(async function() {
+    logger.info(`Starting ${this.test.ctx.title}`)
+  })
 
   after(async function() {
     await browser.close()
   })
 
   afterEach(async function() {
-    logger(`Finishing ${this.test.ctx.title}`)
     await page.screenshot({ path: `tmp/${this.test.ctx.currentTest.title.replace(' ', '_')}.png` })
     await page.goto(baseURL)
+    logger.info(`Finishing ${this.test.ctx.title}`)
   })
 
   describe('edit', function() {
