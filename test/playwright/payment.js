@@ -1,6 +1,5 @@
-const { chromium } = require('playwright');
+const { chromium, devices } = require('playwright');
 const { saveVideo } = require('playwright-video');
-const { assert, expect } = require('chai');
 
 const login = async (page, user) => {
   const usernameInput = '#username'
@@ -80,4 +79,4 @@ const createTransaction = async (page, transaction) => {
   await browser.close();
 })();
 
-// (async () => {})();
+(async () => {})();
