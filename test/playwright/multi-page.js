@@ -1,15 +1,6 @@
 const { chromium, devices } = require('playwright');
 const { saveVideo } = require('playwright-video');
-
-const login = async (page, user) => {
-  const usernameInput = '#username'
-  const passwordInput = '#password'
-  const { username, password } = user
-
-  await page.fill(usernameInput, username)
-  await page.fill(passwordInput, password)
-  await page.click('data-test=signin-submit')
-}
+const { login } = require('./helper/user')
 
 const selectUser = async (page, username) => {
   const searchUserInput = '#user-list-search-input'
@@ -64,12 +55,12 @@ const createTransaction = async (page, transaction) => {
   const receivingUserPage = await receivingUserContext.newPage();
 
   // receiving money user
-  const captureReceiving = await saveVideo(receivingUserPage, `tmp/video/playwright-receiving.mp4`);
+  const captureReceiving = await saveVideo(receivingUserPage, `tmp/video/multi-page/playwright-receiving.mp4`);
   await receivingUserPage.goto('http://localhost:3000/');
   await login(receivingUserPage, receivingUser)
 
   // paying user
-  const capturePaying = await saveVideo(payingUserPage, `tmp/video/playwright-paying.mp4`);
+  const capturePaying = await saveVideo(payingUserPage, `tmp/video/multi-page/playwright-paying.mp4`);
   await payingUserPage.goto('http://localhost:3000/');
   await login(payingUserPage, payingUser)
   await createTransaction(payingUserPage, transaction)
