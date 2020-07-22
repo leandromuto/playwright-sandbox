@@ -1,7 +1,7 @@
 const { chromium } = require('playwright')
 const { saveVideo } = require('playwright-video')
-const { login } = require('../helper/user')
-const { newTransaction } = require('../helper/transaction')
+const { login } = require('../utils/user')
+const { newTransaction } = require('../utils/transaction')
 
 describe('[Multi-page] Transaction', function() {
   let browser
@@ -21,7 +21,7 @@ describe('[Multi-page] Transaction', function() {
     await browser.close()
   })
 
-  it.only('Pay', async () => {
+  it('Pay', async () => {
     const transaction = {
       user: receivingUser.username,
       type: 'payment',
