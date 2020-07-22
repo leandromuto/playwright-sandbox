@@ -1,6 +1,6 @@
 const { chromium, devices } = require('playwright')
 const { saveVideo } = require('playwright-video')
-const { login } = require('../helper/user')
+const { login } = require('../utils/user')
 
 const [
   Pixel2,
@@ -13,6 +13,10 @@ const [
 ];
 
 const test = async (device) => {
+  // locators
+  const menuIconBtn = 'data-test=drawer-icon'
+  const myAccountBtn = '//span[text()="My Account"]'
+
   const { name, spec } = device
   console.log(`Testing ${name} device`)
 
@@ -23,12 +27,12 @@ const test = async (device) => {
   const page = await context.newPage();
 
   await page.goto('http://localhost:3000/');
-  await saveVideo(page, `tmp/video/parallel/${name}.mp4`);
+  await saveVideo(page, `tmp/video/playwright/parallel/${name}.mp4`);
   await login(page, user)
-  await page.click('data-test=drawer-icon')
-  await page.click('//span[text()="My Account"]') // xpath demonstration
+  await page.click(menuIconBtn)
+  await page.click(myAccountBtn)
 
-  await page.screenshot({path: `tmp/${name}.png`, fullPage: true });
+  // await page.screenshot({path: `tmp/${name}.png`, fullPage: true });
   await browser.close();
 }
 

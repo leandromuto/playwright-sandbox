@@ -1,7 +1,7 @@
 const { chromium, devices } = require('playwright')
 const { saveVideo } = require('playwright-video')
-const { login } = require('../helper/user')
-const { newTransaction } = require('../helper/transaction')
+const { login } = require('../utils/user')
+const { newTransaction } = require('../utils/transaction')
 
 (async () => {
   const receivingUser = { username: 'Tavares_Barrows', password: 's3cret' }
