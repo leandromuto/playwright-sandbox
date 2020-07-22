@@ -34,7 +34,6 @@ describe('user', function() {
     await page.fill(emailLocator, email)
     await page.fill(telephoneLocator, telephone)
     await page.click(saveBtnLocator)
-    await page.screenshot({ path: 'saved.png'})
   }
 
   before(async function(){
@@ -68,7 +67,7 @@ describe('user', function() {
   })
 
   describe('edit', function() {
-    it('user info', async () => {
+    it('access user info page', async () => {
       const user = {
         name: 'John',
         surname: 'Logan',
