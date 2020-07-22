@@ -26,7 +26,7 @@ module.exports = {
   package: './package.json',
   reporter: 'spec', // https://mochajs.org/#reporters
   slow: 75,
-  timeout: 2000,
+  timeout: 15000,
   ui: 'bdd',
   'watch-files': ['test/mocha/**/*.js'],
   'watch-ignore': ['lib/**']

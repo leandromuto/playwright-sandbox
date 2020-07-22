@@ -6,7 +6,7 @@
   "author": "Leandro Muto <leandro.muto@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "mocha": "mocha 'test/mocha/**/*.js' --timeout 10000",
+    "mocha": "mocha 'test/mocha/**/*.js'",
     "cucumber": "cucumber-js tests/cucumber/features/**/*.feature"
   },
   "dependencies": {
